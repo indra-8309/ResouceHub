@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { 
+import { API_BASE_URL } from '../config';
+import {
   Building2,
   Calendar,
   Clock,
@@ -23,13 +24,13 @@ const AllBookings = () => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: 'requested_at', direction: 'desc' });
-  
+
   const token = localStorage.getItem('token');
 
   const fetchAllBookings = async (roomId = null) => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8000/bookings/all', {
+      const response = await axios.get(`${API_BASE_URL}/bookings/all`, {
         params: { roomId: roomId || undefined },
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -58,12 +59,12 @@ const AllBookings = () => {
     return bookings.filter(b => {
       const matchesStatus = statusFilter === 'all' || b.status?.toLowerCase() === statusFilter.toLowerCase();
       const searchLower = searchTerm.toLowerCase();
-      const matchesSearch = 
+      const matchesSearch =
         (b.user?.full_name?.toLowerCase().includes(searchLower) || false) ||
         (b.user?.email?.toLowerCase().includes(searchLower) || false) ||
         (b.purpose?.toLowerCase().includes(searchLower) || false) ||
         (b.room?.name?.toLowerCase().includes(searchLower) || false);
-      
+
       return matchesStatus && matchesSearch;
     });
   }, [bookings, statusFilter, searchTerm]);
@@ -73,7 +74,7 @@ const AllBookings = () => {
     if (sortConfig !== null) {
       sortableItems.sort((a, b) => {
         let aValue, bValue;
-        
+
         if (sortConfig.key === 'user') {
           aValue = a.user?.full_name?.toLowerCase() || '';
           bValue = b.user?.full_name?.toLowerCase() || '';
@@ -158,8 +159,8 @@ const AllBookings = () => {
         <div style={{ display: 'flex', gap: '1rem', flex: '1 1 300px' }}>
           <div style={{ flex: 1, position: 'relative' }}>
             <Search size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} />
-            <input 
-              type="text" 
+            <input
+              type="text"
               placeholder="Search user, purpose, or room..."
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
@@ -168,14 +169,14 @@ const AllBookings = () => {
             />
           </div>
           <div style={{ width: '250px' }}>
-            <RoomSelector 
+            <RoomSelector
               onSelect={(room) => setSelectedRoomFilter(room)}
               selectedRoomId={selectedRoomFilter?.id}
               placeholder="Filter by Room..."
             />
           </div>
         </div>
-        
+
         <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto' }}>
           {['all', 'pending', 'approved', 'rejected', 'cancelled'].map(status => (
             <button
@@ -294,13 +295,13 @@ const AllBookings = () => {
                         {getStatusBadge(booking.status)}
                       </td>
                       <td style={{ padding: '1rem 1.5rem', textAlign: 'right' }}>
-                        <Link 
+                        <Link
                           to={`/booking/${booking.id}`}
                           className="btn-outline"
-                          style={{ 
-                            display: 'inline-flex', 
-                            alignItems: 'center', 
-                            gap: '0.4rem', 
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.4rem',
                             padding: '0.4rem 0.75rem',
                             fontSize: '0.75rem',
                             textDecoration: 'none',
