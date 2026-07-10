@@ -204,5 +204,4 @@ The persistence layer uses JPA and Hibernate to manage highly connected entities
 *   **`MaintenanceBlock`**: Allows dynamic lockout intervals for rooms during repairs, excluding affected slots from search results.
 *   **`BookingAudit` & `AuditLog`**: Automatic compliance tracking recording booking updates, timestamped actor IDs, and details of operations.
 
-
 ---
