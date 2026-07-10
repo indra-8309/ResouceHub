@@ -1,0 +1,258 @@
+/* Resource Selector Layouts */
+
+.selector-container {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 20px;
+}
+
+.selector-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+/* Parking Layout */
+.parking-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: #1e1e1e;
+    padding: 30px;
+    border-radius: 12px;
+    border: 2px solid #333;
+    position: relative;
+    overflow: auto;
+    max-height: 400px;
+}
+
+.parking-aisle {
+    height: 60px;
+    background: #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-top: 2px dashed rgba(255, 255, 255, 0.2);
+    border-bottom: 2px dashed rgba(255, 255, 255, 0.2);
+    min-width: 600px;
+}
+
+.parking-aisle::after {
+    content: "DRIVEWAY";
+    color: rgba(255, 255, 255, 0.1);
+    font-size: 0.8rem;
+    letter-spacing: 5px;
+    font-weight: 800;
+}
+
+.parking-row {
+    display: grid;
+    grid-template-columns: repeat(10, 60px);
+    gap: 15px;
+    justify-content: center;
+    min-width: 600px;
+}
+
+.parking-slot {
+    aspect-ratio: 2/3;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #444;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #888;
+    position: relative;
+}
+
+.parking-slot.available:hover {
+    background: rgba(76, 175, 80, 0.2);
+    border-color: #4caf50;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.parking-slot.selected {
+    background: #4caf50;
+    border-color: #4caf50;
+    color: white;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+}
+
+.parking-slot.booked {
+    background: rgba(244, 67, 54, 0.2);
+    border-color: #f44336;
+    color: #f44336;
+    cursor: not-allowed;
+}
+
+.parking-slot-label {
+    font-size: 0.8rem;
+}
+
+.parking-slot.booked .status-label {
+    font-size: 0.5rem;
+    position: absolute;
+    bottom: 5px;
+    font-weight: 800;
+}
+
+/* Shuttle Layout */
+.shuttle-layout {
+    max-width: 450px;
+    margin: 0 auto;
+    background: #2c3e50;
+    padding: 20px;
+    border-radius: 40px 40px 20px 20px;
+    border: 5px solid #34495e;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+    overflow-y: auto;
+    max-height: 500px;
+}
+
+.shuttle-front {
+    height: 70px;
+    border-bottom: 3px solid rgba(255,255,255,0.1);
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 25px;
+    align-items: center;
+}
+
+.driver-seat {
+    width: 45px;
+    height: 45px;
+    background: #1a1a1a;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    font-size: 1.2rem;
+}
+
+.shuttle-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.shuttle-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 40px 1fr 1fr;
+    gap: 8px;
+    align-items: center;
+}
+
+.shuttle-aisle-space {
+    width: 40px;
+}
+
+.shuttle-seat {
+    aspect-ratio: 1/1;
+    background: #ecf0f1;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #2c3e50;
+    font-weight: 700;
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+    border: 2px solid #bdc3c7;
+    position: relative;
+    box-shadow: 0 4px 0 #bdc3c7;
+}
+
+.shuttle-seat:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #bdc3c7;
+}
+
+.shuttle-seat.available:hover {
+    background: #27ae60;
+    border-color: #2ecc71;
+    color: white;
+    box-shadow: 0 4px 0 #2ecc71;
+}
+
+.shuttle-seat.selected {
+    background: #3498db;
+    border-color: #2980b9;
+    color: white;
+    box-shadow: 0 4px 0 #2980b9;
+}
+
+.shuttle-seat.booked {
+    background: #e74c3c;
+    border-color: #c0392b;
+    color: white;
+    cursor: not-allowed;
+    box-shadow: 0 4px 0 #c0392b;
+}
+
+.shuttle-seat.booked::after {
+    content: "X";
+    position: absolute;
+    font-size: 1.2rem;
+    opacity: 0.3;
+}
+
+.selection-legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}
+
+/* Custom Scrollbar for sleek dark look */
+.parking-layout::-webkit-scrollbar,
+.shuttle-layout::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.parking-layout::-webkit-scrollbar-track,
+.shuttle-layout::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.parking-layout::-webkit-scrollbar-thumb,
+.shuttle-layout::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 10px;
+}
+
+.parking-layout::-webkit-scrollbar-thumb:hover,
+.shuttle-layout::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}

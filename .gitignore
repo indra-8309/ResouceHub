@@ -1,0 +1,43 @@
+# React & Node
+**/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/build/
+
+# Spring Boot & Maven
+backend/target/
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Local Database files (e.g. H2 local DBs)
+*.db
+*.mv.db
+*.trace.db
+
+# IDEs & Editor Configuration
+.vscode/
+.idea/
+.metadata/
+.classpath
+.project
+.settings/
+*.suo
+*.sln
+*.swp
+
+# OS System Files
+.DS_Store
+Thumbs.db
+
+# Logs & Dump Files
+*.log
+*.stackdump
+error_log.txt
+
+# Environment files
+.env
+.env.local
+.env.*.local
