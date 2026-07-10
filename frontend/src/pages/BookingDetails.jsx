@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import { 
   ArrowLeft, 
   Clock, 
@@ -15,8 +16,6 @@ import {
   Ban
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
-
-const API_BASE_URL = 'http://localhost:8000';
 
 const BookingDetails = () => {
   const { id } = useParams();

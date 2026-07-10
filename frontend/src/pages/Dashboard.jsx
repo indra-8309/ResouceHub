@@ -16,6 +16,7 @@ import {
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { API_BASE_URL } from '../config';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -41,7 +42,7 @@ const Dashboard = () => {
   const handleAction = async (status) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`http://localhost:8000/bookings/${selectedRequest.id}/status`, {
+      await axios.post(`${API_BASE_URL}/bookings/${selectedRequest.id}/status`, {
         status,
         manager_comment: comment
       }, {
@@ -63,19 +64,19 @@ const Dashboard = () => {
       try {
         if (user.role === 'admin') {
           const token = localStorage.getItem('token');
-          const res = await axios.get('http://localhost:8000/admin/stats', {
+          const res = await axios.get(`${API_BASE_URL}/admin/stats`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           setStats(res.data);
           
           // Fetch approval history for Admin's recent activity (not just pending)
-          const reqRes = await axios.get('http://localhost:8000/manager/requests?pending_only=false', {
+          const reqRes = await axios.get(`${API_BASE_URL}/manager/requests?pending_only=false`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           setRecentBookings(reqRes.data.slice(0, 5));
         } else {
           const token = localStorage.getItem('token');
-          const res = await axios.get('http://localhost:8000/bookings/my', {
+          const res = await axios.get(`${API_BASE_URL}/bookings/my`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           const bookings = res.data;
@@ -314,7 +315,7 @@ const Dashboard = () => {
                                   toast.dismiss(t.id);
                                   try {
                                     const token = localStorage.getItem('token');
-                                    await axios.post(`http://localhost:8000/bookings/${booking.id}/status`, { 
+                                    await axios.post(`${API_BASE_URL}/bookings/${booking.id}/status`, { 
                                       status: 'cancelled',
                                       manager_comment: 'Cancelled by user'
                                     }, {

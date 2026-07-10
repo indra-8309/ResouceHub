@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { API_BASE_URL } from '../config';
 import {
   User,
   Mail,
@@ -31,7 +32,7 @@ const Register = () => {
 
   const fetchDepartments = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/departments');
+      const response = await axios.get(`${API_BASE_URL}/departments`);
       console.log("Testing Indra : ", response.config);
 
       setDepartments(response.data);
@@ -44,7 +45,7 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post('http://localhost:8000/auth/register', {
+      await axios.post(`${API_BASE_URL}/auth/register`, {
         ...formData,
         department_id: formData.department_id ? parseInt(formData.department_id) : null
       });

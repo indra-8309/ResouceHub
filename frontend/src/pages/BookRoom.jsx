@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { API_BASE_URL } from '../config';
 import {
   Search,
   Users,
@@ -83,7 +84,7 @@ const BookRoom = () => {
 
   const fetchDepartments = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/departments');
+      const response = await axios.get(`${API_BASE_URL}/departments`);
       setDepartments(response.data);
     } catch (error) {
       console.error('Failed to fetch departments');
@@ -125,7 +126,7 @@ const BookRoom = () => {
         const start = `${dateStr}T${searchParams.startTime}:00`;
         const end = `${dateStr}T${searchParams.endTime}:00`;
 
-        const response = await axios.get('http://localhost:8000/rooms/search', {
+        const response = await axios.get(`${API_BASE_URL}/rooms/search`, {
           params: {
             startTime: start,
             endTime: end,
@@ -191,11 +192,11 @@ const BookRoom = () => {
       const config = { headers: { Authorization: `Bearer ${token}` } };
 
       // Fetch all slots
-      const slotsRes = await axios.get(`http://localhost:8000/rooms/${room.id}/slots`, config);
+      const slotsRes = await axios.get(`${API_BASE_URL}/rooms/${room.id}/slots`, config);
       setResourceSlots(slotsRes.data);
 
       // Fetch booked slots
-      const bookedRes = await axios.get(`http://localhost:8000/rooms/${room.id}/booked-slots`, {
+      const bookedRes = await axios.get(`${API_BASE_URL}/rooms/${room.id}/booked-slots`, {
         params: { start, end },
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -257,7 +258,7 @@ const BookRoom = () => {
 
       // Process all bookings
       const results = await Promise.all(bookings.map(b => 
-        axios.post('http://localhost:8000/bookings', b, {
+        axios.post(`${API_BASE_URL}/bookings`, b, {
           headers: { Authorization: `Bearer ${token}` }
         })
       ));

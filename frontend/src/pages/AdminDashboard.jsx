@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import {
   BarChart3,
   TrendingUp,
@@ -60,7 +61,7 @@ const AdminDashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/admin/stats', {
+      const response = await axios.get(`${API_BASE_URL}/admin/stats`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setStats(response.data);
@@ -71,7 +72,7 @@ const AdminDashboard = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/admin/users', {
+      const response = await axios.get(`${API_BASE_URL}/admin/users`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUsers(response.data);
@@ -82,7 +83,7 @@ const AdminDashboard = () => {
 
   const fetchPendingUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/admin/requests', {
+      const response = await axios.get(`${API_BASE_URL}/admin/requests`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setPendingUsers(response.data);
@@ -93,7 +94,7 @@ const AdminDashboard = () => {
 
   const fetchManagers = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/users/managers', {
+      const response = await axios.get(`${API_BASE_URL}/users/managers`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setManagers(response.data);
@@ -104,7 +105,7 @@ const AdminDashboard = () => {
 
   const fetchDepartments = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/departments', {
+      const response = await axios.get(`${API_BASE_URL}/departments`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setDepartments(response.data);
@@ -115,7 +116,7 @@ const AdminDashboard = () => {
 
   const fetchBookings = async (roomId = null) => {
     try {
-      const response = await axios.get('http://localhost:8000/admin/bookings', {
+      const response = await axios.get(`${API_BASE_URL}/admin/bookings`, {
         params: { room_id: roomId || undefined },
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -150,12 +151,12 @@ const AdminDashboard = () => {
       };
 
       if (editingUser) {
-        await axios.put(`http://localhost:8000/admin/users/${editingUser.id}`, payload, {
+        await axios.put(`${API_BASE_URL}/admin/users/${editingUser.id}`, payload, {
           headers: { Authorization: `Bearer ${token}` }
         });
         toast.success('User updated successfully');
       } else {
-        await axios.post('http://localhost:8000/admin/users', payload, {
+        await axios.post(`${API_BASE_URL}/admin/users`, payload, {
           headers: { Authorization: `Bearer ${token}` }
         });
         toast.success('User created successfully');
@@ -172,7 +173,7 @@ const AdminDashboard = () => {
 
   const handleDeleteUser = async (userId) => {
     try {
-      await axios.delete(`http://localhost:8000/admin/users/${userId}`, {
+      await axios.delete(`${API_BASE_URL}/admin/users/${userId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success('User deleted permanently');
@@ -185,7 +186,7 @@ const AdminDashboard = () => {
 
   const handleApprove = async (id) => {
     try {
-      await axios.put(`http://localhost:8000/admin/users/${id}/approve`, {}, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.put(`${API_BASE_URL}/admin/users/${id}/approve`, {}, { headers: { Authorization: `Bearer ${token}` } });
       toast.success('User approved!');
       fetchPendingUsers();
       fetchUsers();
@@ -196,7 +197,7 @@ const AdminDashboard = () => {
 
   const handleReject = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/admin/users/${id}/reject`, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.delete(`${API_BASE_URL}/admin/users/${id}/reject`, { headers: { Authorization: `Bearer ${token}` } });
       toast.success('User request rejected.');
       fetchPendingUsers();
     } catch (error) {

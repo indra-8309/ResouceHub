@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { API_BASE_URL } from '../config';
 import { 
   Plus, 
   Edit2, 
@@ -72,7 +73,7 @@ const ManageRooms = () => {
 
   const fetchDepartments = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/departments', {
+      const response = await axios.get(`${API_BASE_URL}/departments`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setDepartments(response.data);
@@ -83,7 +84,7 @@ const ManageRooms = () => {
 
   const fetchRooms = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/rooms', {
+      const response = await axios.get(`${API_BASE_URL}/rooms`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setRooms(response.data);
@@ -142,12 +143,12 @@ const ManageRooms = () => {
       };
 
       if (editingRoom) {
-        await axios.put(`http://localhost:8000/admin/rooms/${editingRoom.id}`, dataToSend, {
+        await axios.put(`${API_BASE_URL}/admin/rooms/${editingRoom.id}`, dataToSend, {
           headers: { Authorization: `Bearer ${token}` }
         });
         toast.success('Room updated successfully');
       } else {
-        await axios.post('http://localhost:8000/admin/rooms', dataToSend, {
+        await axios.post(`${API_BASE_URL}/admin/rooms`, dataToSend, {
           headers: { Authorization: `Bearer ${token}` }
         });
         toast.success('Room created successfully');
@@ -178,7 +179,7 @@ const ManageRooms = () => {
   const handleAddMaintenance = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`http://localhost:8000/admin/rooms/${selectedRoomForMaintenance.id}/maintenance`, maintenanceForm, {
+      await axios.post(`${API_BASE_URL}/admin/rooms/${selectedRoomForMaintenance.id}/maintenance`, maintenanceForm, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success('Maintenance block added');
@@ -192,7 +193,7 @@ const ManageRooms = () => {
 
   const handleDeleteRoom = async (roomId) => {
     try {
-      await axios.delete(`http://localhost:8000/admin/rooms/${roomId}`, {
+      await axios.delete(`${API_BASE_URL}/admin/rooms/${roomId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success('Room deleted successfully');
@@ -204,7 +205,7 @@ const ManageRooms = () => {
 
   const handleDeleteMaintenance = async (blockId) => {
     try {
-      await axios.delete(`http://localhost:8000/admin/maintenance/${blockId}`, {
+      await axios.delete(`${API_BASE_URL}/admin/maintenance/${blockId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success('Maintenance block removed');

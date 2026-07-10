@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -26,7 +27,7 @@ const PersonalCalendar = () => {
   const fetchMyBookings = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:8000/bookings/my', {
+      const response = await axios.get(`${API_BASE_URL}/bookings/my`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       // Filter out rejected and cancelled

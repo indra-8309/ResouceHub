@@ -16,6 +16,7 @@ import {
   Calendar as CalendarIcon
 } from 'lucide-react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
 const Sidebar = () => {
   const { user, logout } = useAuth();
@@ -50,7 +51,7 @@ const Sidebar = () => {
   const fetchPendingCount = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:8000/manager/requests', {
+      const response = await axios.get(`${API_BASE_URL}/manager/requests`, {
         params: { pending_only: true },
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -63,7 +64,7 @@ const Sidebar = () => {
   const fetchPendingUsersCount = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:8000/admin/requests', {
+      const response = await axios.get(`${API_BASE_URL}/admin/requests`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setPendingUsersCount(response.data.length);

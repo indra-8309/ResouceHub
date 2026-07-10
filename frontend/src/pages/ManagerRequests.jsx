@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { API_BASE_URL } from '../config';
 import { 
   Check, 
   X, 
@@ -118,7 +119,7 @@ const ManagerRequests = () => {
   const fetchRequests = async (roomId = null) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://localhost:8000/manager/requests`, {
+      const response = await axios.get(`${API_BASE_URL}/manager/requests`, {
         params: { 
           pendingOnly: pendingOnly,
           roomId: roomId || undefined
@@ -140,8 +141,8 @@ const ManagerRequests = () => {
     try {
       const token = localStorage.getItem('token');
       const url = selectedRequest.isGroup 
-        ? `http://localhost:8000/bookings/batch/${selectedRequest.request_id}/status`
-        : `http://localhost:8000/bookings/${selectedRequest.id}/status`;
+        ? `${API_BASE_URL}/bookings/batch/${selectedRequest.request_id}/status`
+        : `${API_BASE_URL}/bookings/${selectedRequest.id}/status`;
 
       await axios.post(url, {
         status,

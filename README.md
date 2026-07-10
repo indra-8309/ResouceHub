@@ -125,7 +125,7 @@ GRANT CONNECT, RESOURCE, DBA TO engage;
     ```bash
     cd backend
     ```
-2.  Review your database credentials in [application.properties](file:///e:/Resume%20Projects/Capstone-project/Capstone-project/Resource_Booking/backend/src/main/resources/application.properties).
+2.  Configure your database credentials and JWT secret key inside the [backend/.env](file:///e:/Resume%20Projects/Capstone-project/Capstone-project/Resource_Booking/backend/.env) file.
 3.  Compile and build the artifacts:
     ```bash
     mvn clean install
@@ -143,11 +143,15 @@ GRANT CONNECT, RESOURCE, DBA TO engage;
     ```bash
     cd ../frontend
     ```
-2.  Install packages:
+2.  Verify your backend api connection endpoint inside the [frontend/.env](file:///e:/Resume%20Projects/Capstone-project/Capstone-project/Resource_Booking/frontend/.env) file:
+    ```env
+    VITE_API_BASE_URL=http://localhost:8000
+    ```
+3.  Install packages:
     ```bash
     npm install
     ```
-3.  Run the client application:
+4.  Run the client application:
     ```bash
     npm run dev
     ```

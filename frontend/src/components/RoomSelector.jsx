@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Search, Users, Info, ChevronDown, XCircle, CheckCircle2, Clock } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const RoomSelector = ({ onSelect, selectedRoomId, placeholder = "Search and select a room", showMaintenance = true }) => {
   const [rooms, setRooms] = useState([]);
@@ -14,7 +15,7 @@ const RoomSelector = ({ onSelect, selectedRoomId, placeholder = "Search and sele
       setLoading(true);
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8000/rooms', {
+        const response = await axios.get(`${API_BASE_URL}/rooms`, {
           params: { name: searchTerm },
           headers: { Authorization: `Bearer ${token}` }
         });

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
+import { API_BASE_URL } from '../config';
 import {
   Calendar,
   Clock,
@@ -36,7 +37,7 @@ const MyBookings = () => {
   const fetchRooms = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:8000/rooms', {
+      const response = await axios.get(`${API_BASE_URL}/rooms`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setRooms(response.data);
@@ -48,7 +49,7 @@ const MyBookings = () => {
   const fetchBookings = async (roomId = null) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:8000/bookings/my', {
+      const response = await axios.get(`${API_BASE_URL}/bookings/my`, {
         params: { roomId: roomId || undefined },
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -64,8 +65,8 @@ const MyBookings = () => {
     try {
       const token = localStorage.getItem('token');
       const url = isBatch 
-        ? `http://localhost:8000/bookings/batch/${id}/status`
-        : `http://localhost:8000/bookings/${id}/status`;
+        ? `${API_BASE_URL}/bookings/batch/${id}/status`
+        : `${API_BASE_URL}/bookings/${id}/status`;
         
       await axios.post(url, {
         status: 'cancelled',
