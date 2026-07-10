@@ -1,4 +1,4 @@
-# 🏢 ReserveHub Application
+# 🏢 ReserveHub App
 
 > **Immersive 360° Workspace & Resource Booking Platform**
 > 
